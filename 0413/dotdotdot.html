@@ -1,0 +1,33 @@
+<html>
+    <body>
+        JavaScript is <span><input type="button" value="..." onclick="
+            if(document.querySelector('.lorem').style.display == 'none') {
+                document.querySelector('.lorem').style.display = 'inline';
+            } else {
+                document.querySelector('.lorem').style.display = 'none'; 
+            }
+        "></input></span> 
+        <span class="lorem">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore architecto est accusantium nulla cumque molestiae
+            eveniet quasi ullam possimus. Excepturi ratione dolorum omnis ab in. Ipsa expedita quidem rerum nam tempore,
+            adipisci id nulla accusamus recusandae quod pariatur cupiditate fugit, odio porro tenetur? Fugiat aliquam dolorem
+            maiores, rem optio provident distinctio quaerat corrupti ipsum minima molestias, recusandae officiis aliquid sunt
+            obcaecati nobis odit deleniti iste labore veritatis praesentium quas aut autem. Cumque sit aspernatur illum officia
+            corporis aut debitis. Vel exercitationem vitae libero corrupti, perferendis distinctio, omnis recusandae voluptate
+            a, ipsum porro! Ipsa enim laboriosam at dolorem maiores, nobis error.
+        </span>
+
+        <hr>
+
+        JavaScript is <span
+            style="background-color: gray;
+                    padding: 0 5px;
+                   cursor: pointer;
+            "
+            onclick="
+                this.style.display='none';
+                document.querySelector('#content').innerHTML = `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore architecto est accusantium nulla cumque molestiae`;
+            ">...</span>
+        <span id="content"></span>
+    </body>
+</html>
