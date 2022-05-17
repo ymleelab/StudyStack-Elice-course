@@ -1,5 +1,6 @@
 const express = require('express')
 const BookSchema = require('../models/book')
+const bookController = require('../controller/post')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -11,24 +12,7 @@ router.get('/del', (req, res) => {
     res.render('delete')
 })
 
-router.get('/bookinfo/:id', (req, res) => {
-    const authorname = req.params.id;
-
-    // BookSchema.findOne({auther: authorname}, (err, result) => {
-    //     if(result) {
-    //         return res.json(result);
-    //     } else {
-    //         return res.send("등록된 작가가 없습니다")
-    //     }
-    // })
-
-    BookSchema.find({author: authorname })
-        .then(result => {
-            res.json(result);
-        }).catch(err => {
-            console.log(err);
-        })
-})
+router.get('/bookinfo/:id', bookController.getbookinfo);
 
 router.delete('/del/:id', (req, res) => {
     const bookname = req.params.id;
@@ -49,21 +33,39 @@ router.post('/', (req, res, next) => {
     next();
 })
 
-router.post('/addbook', (req, res) => {
-    const bookname = req.body.bookname;
-    const author = req.body.author;
-    const price = req.body.price;
-    const date = req.body.date;
-    
-    let bookData = new BookSchema({ 
-        bookname: bookname, author: author, price: price, publish : date
-    })
-    bookData.save();
-    res.redirect('/expost')
-})
+
+router.post('/addbook', bookController.addbook);
 
 router.post('/', (req, res) => {
     res.redirect('/expost')
 })
+
+router.get('/getlist', async (req, res) => {
+    const result = await BookSchema.find({}).exec();
+    return res.status(200).json(result);
+})
+
+router.get('/users', (req, res) => {
+    res.render('user');
+})
+
+router.post('/users', async (req, res, next) => {
+    try {
+        const userid = req.body.userid;
+        const job = req.body.job;
+        const user = new userSchema({
+            userid: userid,
+            job: job
+        });
+        const result = await user.save();
+        res.status(200).json({
+            result,
+            message: 'user saved'
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
 
 module.exports = router
