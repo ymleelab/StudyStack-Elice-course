@@ -7,6 +7,9 @@ const slice = createSlice({
     down: (state, action) => {
       state.value = state.value - action.payload;
     },
+    set: (state, action) => {
+      state.value = action.payload;
+    },
   },
 });
 export default slice;
